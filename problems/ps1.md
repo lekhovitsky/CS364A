@@ -2,7 +2,19 @@
 
 ### Problem 1
 
+The example I want to present is a situation at the National Economics Tournament I took part in a few years ago. While the mechanism designer is, expectedly, an organizing committee of the tournament, the participants are not participating students but rather the judges, whose incentives sometimes involve giving the higher grades to the teams they favor. 
 
+The tournament took place in a Ukrainian city named Sumy, and most of the judges were the teachers and professors from there. The interesting situation happened at the semi-final stage. There were 9 teams, divided into 3 groups of 3 teams. Each group played one round, and the team with the highest score from each group proceeded to the final. There were 3 students' teams from Sumy, and by some coincidence they all got into different groups. Guess what happened? Yup, since most of the judges were basically their teachers, they won every group, so the final stage was a competition of three local teams, who were far from being the strongest, which caused major unsatisfaction of other participants, judges and organizers. 
+
+So, judges' strategic behavior of giving higher scores to teams who they favor contradicts the organizers' desire of running the tournament as fair as possible. There exist multiple solutions to this:
+
+* put the local teams into as few groups as possible;
+  * although completely solves the problem, it's usually impossible since the grid is fixed;
+
+* decrease the proportion of local teachers among the judges, or at least try to make the set of judges in every group as diverse as possible;
+  * the latter is being more or less successfully used these days;
+* instead of 1 semi-final game, run 2, with different group splits;
+  * also used when the resources allow.
 
 ### Problem 2
 

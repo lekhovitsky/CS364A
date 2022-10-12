@@ -1,6 +1,7 @@
 # CS364A: Algorithmic Game Theory
-My solutions to Tim Roughgarden's Algorithmic Game Theory course exercises and problems.
+Solutions to Tim Roughgarden's Algorithmic Game Theory course exercises.
 
 Course webpage: http://timroughgarden.org/f13/f13.html
 
-GitHub doesn't render formulas in `.md` files, so one might use [StackEdit](https://stackedit.io/app) to view the solutions online (just copy-paste the code there) and  [Markdown Viewer](https://github.com/simov/markdown-viewer) or [Typora](https://typora.io/) to view them locally (yeah, not very useful, but still better than uploading `.tex` here).
+If you notice any mistake or typo, feel free to contact me or open an issue.
+Also, if you have some inspiration, take a look at https://github.com/lekhovitsky/CS364A/issues/2 for the list of exercises I didn't manage to solve :D

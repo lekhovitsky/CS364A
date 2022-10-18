@@ -182,15 +182,45 @@ So, there always exists an equilibrium in a GSP auction that matches truthful au
 
 ### Problem 4
 
-
+:(
 
 ### Problem 5
 
+(a) Let’s say we have a graph $G$ with a set of nodes $N = \\{1, 2, \dots, n\\}$, set of edges $M$, and weights $V = \\{v_1, v_2, \dots, v_n\\}$ associated with nodes.
 
+Let’s associate each node $i$ with a bidder, each edge $m$ with a good, and each weight $v_i$ with bidder $i$’s valuation.
+Also, let $T_i$ be the set of goods corresponding to the edges adjacent to node $i$. Since the maximum degree in this graph is $d$, the cardinality of $T_i$ is also at most $d$.
+
+The maximum-weight independent set of $G$ is a set of nodes (bidders) that has a maximum total weight (social surplus) among those sets no two nodes of which are adjacent (among all feasible player sets).
+So, finding the maximum-weight independent set of a graph with a maximum degree $d$ reduces to the problem of maximizing the social surplus of bidders who each desire a set $T_i$ of goods with cardinality at most $d$.
+The former problem is known to be NP-hard, so the latter is also NP-hard.
+
+(b) Consider a bidder $k$ in re-indexed array.
+Let's say they modify their bid to  $b_k^\prime$ while other bids stay the same, and see how it affects their allocation:
+* if $b_k^\prime$ is sufficiently high, $k$ will be considered at an earlier iteration with a broader set $X$ then initially, so they might get a chance to win something (if they weren't winning already), and $x_k$ can't decrease;
+* if $b_k^\prime$ is sufficiently low, $k$ will be considered at a later iteration with a more narrow set $X$ than before, so they might lose the chance to win (if they were winning at all), and $x_k$ can't increase.
+
+So, the algorithm defines a monotone allocation rule.
+
+(с) When $d = 1$, the algorithm allocates each good to the bidder with the highest valuation among those who want that good, and the resulting surplus is maximum possible, which satisfies the relationship we're trying to prove.
+
+Consider a case when $d > 1$.
+On every iteration $i$, when the greedy algorithm chooses a winner with valuation $v_i$, it can "block" at most $d$ bidders that win in the optimum, each with a valuation less than or equal to $v_i$.
+For example, let's say on iteration $i$ the goods $m_1$ and $m_2$ are still not allocated, and $b_i = 2$, $T_i = \\{m_1, m_2\\}$, $b_{i+1} = b_{i+2}= 1.99$, $T_{i+1} = \\{m_1\\}$, $T_{i+2} = \\{m_2\\}$.
+Then, the greedy algorithm would allocate $m_1$ and $m_2$ to $i$ and "block" bidders $i+1$ and $i+2$ who have total valuation of $3.98$ and should be in optimal allocation instead of $i$.
+Other bidders may also be "blocked" (say, $b_{i+3}$ who also wants $m_1$ with valuation $1.98$), but they don't win in the optimum.
+
+Then, the social surplus of the greedy algorithm is $V_{\mathrm{greedy}} = \sum_{i \in S_{\mathrm{greedy}}} v_i$, and the maximum social surplus is
+
+$$
+V_{\mathrm{opt}} \le \sum_{i \in S_{\mathrm{greedy}}} d v_i = d V_{\mathrm{greedy}},
+$$
+
+so the greedy algorithm indeed gives the social surplus at least $\frac{1}{d}$ times that of the maximum possible.
 
 ### Problem 6
 
-(a) Let's fix an arbitrary player $i$, his valuation $v_i$, and bidding strategies of other players $b_j(v_j) = \frac{n-1}{n} v_j$.
+(a) Let's fix an arbitrary player $i$, their valuation $v_i$, and bidding strategies of other players $b_j(v_j) = \frac{n-1}{n} v_j$.
 
 Let's try to optimize $i$'s expected utility $u_i$ w.r.t. the bid size $b$.
 If all other players bid below $b$, $i$ wins and gets $v_i - b$, otherwise, $i$ gets 0.
@@ -200,7 +230,7 @@ $$
 u_i(b) = \idotsint_V (v_i - b) \mathbf{d} \mathbf{v}\_{-i},
 $$
 
-where $V = \left[0;\ \frac{n}{n-1} b \right]^{n-1}$.
+where $V = \left\[0;\ \frac{n}{n-1} b \right\]^{n-1}$.
 
 The integral calculation is trivial:
 
@@ -214,28 +244,28 @@ We do it by solving $u_i^\prime(b) = 0$:
 $$
 u_i^\prime(b)
     = - C b^{n-1} + C (n-1) (v_i - b) b^{n-2}
-    = C \left[(n - 1) v_i - nb\right] b^{n-2}.
+    = C \left\[(n - 1) v_i - nb\right\] b^{n-2}.
 $$
 
 $b = 0$ is not of much interest, so the final best-response bidding rule is
 
 $$
-b_i(v_i) = \frac{n-1}{n}v_i.
+b_i(v_i) = \frac{n-1}{n} v_i.
 $$
 
 Since $i$ was selected arbitrarily, same logic applies for other players as well, and the profile $\left( \frac{n-1}{n} v_1, \dots, \frac{n-1}{n} v_n \right)$ is indeed a Bayes-Nash equilibrium in a first-price auction.
 
 (b) First, let's prove a helpful lemma.
 
-**Lemma**. If $\\{x_1, \dots, x_n\\}$ are i.i.d. draws from $\mathrm{Unif}(0, a)$, then $\mathbb{E}[\max_i x_i] = \frac{n}{n+1}a$.
+**Lemma**. If $\\{x_1, \dots, x_n\\}$ are i.i.d. draws from $\mathrm{Unif}(0, a)$, then $\mathbb{E}\[\max_i x_i\] = \frac{n}{n+1} a$.
 
 **Proof**.
 
 $$
 \displaylines{
-\mathbb{E}[\max_i x_i]
-    = \sum_i \mathbb{E}[x_i \mid \forall j \ne i\ x_i > x_j]
-    = n \cdot \mathbb{E}[x_1 \mid \forall j \ne 1\ x_1 > x_j] \\
+\mathbb{E}\[\max_i x_i\]
+    = \sum_i \mathbb{E}\[x_i \mid \forall j \ne i\ x_i > x_j\]
+    = n \cdot \mathbb{E}\[x_1 \mid \forall j \ne 1\ x_1 > x_j\] \\
     = n \int_0^a x_1 \prod_{j \ne i} \left( \int_0^{x_1} \mathrm{d}x_j \right) \mathrm{d}x_1
     = n \int_0^a x_1^n \mathrm{d}x_1
     = \frac{n}{n+1} x_1^{n+1} \bigg|\_0^a
@@ -251,7 +281,7 @@ In BNE, $b_i = \frac{n-1}{n} v_i$, and since $v_i \sim \text{Unif}(0, 1)$,
 $$
 b_i \sim \text{Unif}\left(0, \frac{n-1}{n}\right)
 \Rightarrow
-\mathbb{E}[\max_i b_i] = \frac{n}{n+1} \frac{n-1}{n} = \frac{n-1}{n+1}.
+\mathbb{E}\[\max_i b_i\] = \frac{n}{n+1} \frac{n-1}{n} = \frac{n-1}{n+1}.
 $$
 
 In a *second-price auction*, revenue equals to the second-largest bid, and under truthful bidding $b_i = v_i$.
@@ -262,9 +292,11 @@ By our lemma, the expected value of the largest of them (which is a second-large
 The expected value of this expression (applying our lemma one more time)
 
 $$
-\mathbb{E}\left[\frac{n-1}{n} b\right]
-    = \frac{n-1}{n} \mathbb{E}\left[\max_i b_i\right]
+\mathbb{E}\left\[\frac{n-1}{n} b\right\]
+    = \frac{n-1}{n} \mathbb{E}\left\[\max_i b_i\right\]
     = \frac{n-1}{n} \frac{n}{n+1} = \frac{n-1}{n+1}
 $$
 
 gives us the expected revenue in a second-price auction, which equals to the expected revenue of a first-price auction derived above.
+
+(c) :(

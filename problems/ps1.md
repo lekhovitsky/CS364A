@@ -299,4 +299,157 @@ $$
 
 gives us the expected revenue in a second-price auction, which equals to the expected revenue of a first-price auction derived above.
 
-(c) :(
+(c) I'll break down the solution into 4 steps: useful integral, general FPA BNE bidding derivation, FPA expected revenue and SPA expected revenue.
+
+**Step 0.**
+Let's evaluate the following integral, which will come in handy in further steps:
+
+$$
+I_k = \int_0^1 x F(x)^k f(x) \mathrm d x.
+$$
+
+Let's use integration by parts.
+Set $u = x F(x)^k$, $\mathrm d v = f(x) \mathrm d x$.
+Then, $\mathrm d u = (F(x)^k + k x F(x)^{k-1} f(x)) \mathrm d x$, $v = F(x)$, and
+
+$$
+\displaylines{
+I_k
+    = x F(x)^{k+1} \Big|\_0^1 - \int_0^1 F(x)^{k+1} \mathrm d x - \int_0^1 k x F(x)^k f(x) \mathrm d x \\
+    = 1 - \int_0^1 F(x)^{k+1} \mathrm d x - k I_k.
+}
+$$
+
+From here, we have
+
+$$
+I_k = \frac{1}{k+1} \left(1 - \int_0^1 F(x)^{k+1} \mathrm d x\right).
+$$
+
+**Step 1.**
+Let's try to find a symmetric BNE, i.e., some bidding function $b(\cdot)$ that all the bidders follow.
+We will assume that $b$ is strictly increasing and that $b(0) = 0$.
+
+Let's fix an arbitrary player $i$ who can submit an arbitrary valuation $x$, while other bidders submit their true valuations.
+$i$'s expected utility is then
+
+$$
+\displaylines{
+u_i(x)
+    = (v_i - b(x)) \mathbb P \[\forall j \ne i\ b(x) > b(v_j)\]
+    \underset{\text{$b$ is increasing}}{=} (v_i - b(x)) \mathbb P \[\forall j \ne i\ x > v_j\] \\
+    = (v_i - b(x)) \left(\int_0^x f(t) \mathrm d t\right)^{n-1}
+    = (v_i - b(x)) F(x)^{n-1}.
+}
+$$
+
+Now, in symmetric equilibrium all the players submit their true valuations into the bidding strategy, so $i$'s expected utility must be maximized when $x = v_i$, or
+
+$$
+\displaylines{
+0
+    = u_i^\prime (x) \big|\_{x=v_i}
+    = -b^\prime(v_i) F(v_i)^{n-1} + (v_i - b(v_i)) (F^{n-1})^\prime(v_i) \\
+    \Rightarrow
+    b^\prime(v_i) F(v_i)^{n-1} + b(v_i) (F(v_i)^{n-1})^\prime = v_i (F^{n-1})^\prime(v_i) \\
+    \Rightarrow
+    \left\[ b(v_i) F(v_i)^{n-1} \right\]^\prime = v_i (F^{n-1})^\prime(v_i).
+}
+$$
+
+Remember that our unknown is $b$, so let's rename $v_i$ to $x$ in the last equation and integrate it from $0$ to $v_i$ (recall that $b(0) = 0$):
+
+$$
+\displaylines{
+b(v_i) F(v_i)^{n-1}
+    = \int_0^{v_i} x (F^{n-1})^\prime(x)\mathrm d x
+    = (x F(x)^{n-1}) \big|\_0^{v_i} - \int_0^{v_i} F(x)^{n-1} \mathrm d x \\
+    \Rightarrow
+    b(v_i) = v_i - \frac{\int_0^{v_i} F(x)^{n-1} \mathrm d x}{F(v_i)^{n-1}}.
+}
+$$
+
+We also need to show that $u_i^\prime$ changes the sign at $x = v_i$.
+
+$$
+b^\prime(v_i)
+    = 1 - \frac{F(v_i)^{2(n-1)} - (F^{n-1})^\prime(v_i)\int_0^{v_i} F(x)^{n-1} \mathrm d x}{F(v_i)^{2(n-1)}}
+    = \frac{(F^{n-1})^\prime(v_i) \int_0^{v_i} F(x)^{n-1} \mathrm d x}{F(v_i)^{2(n-1)}},
+$$
+
+so 
+
+$$
+\displaylines{
+u_i(x)
+    = - \frac{(F^{n-1})^\prime(x) \int_0^{x} F(t)^{n-1} \mathrm d t}{F(x)^{2(n-1)}} F(x)^{n-1}
+    + \left(v_i - x + \frac{\int_0^{x} F(t)^{n-1} \mathrm d t}{F(x)^{n-1}} \right) (F^{n-1})^\prime(x) \\
+    = (v_i - x) (F^{n-1})^\prime(x),
+}
+$$
+
+which indeed is positive when $x < v_i$ and negative when $x > v_i$.
+
+The function we found isn't really defined at $v_i = 0$, but $b(v_i) \to 0$ as $v_i \to 0$ (left as an exercise to the reader), so we may use its continuous extension.
+Besides that, $F$ is non-negative and $f$ is positive on $\[0; 1\]$, so $b(v_i)^\prime$ is also positive and $b$ is indeed strictly increasing.
+
+**Step 2.**
+The expected revenue of the first-price auction equals the expected value of the maximum of $n$ bids:
+
+$$
+\displaylines{
+\mathbb E \[R_{\mathrm{FPA}}\]
+    = \sum_i \mathbb E \[b(x_i) \mid \forall j \ne i\ b(x_i) > b(x_j)\]
+    \underset{\text{$b$ is increasing}}{=} n \mathbb E \[b(x_1) \mid \forall j > 1\ x_1 > x_j\] \\
+    = n \int_0^1 b(x) \left( \int_0^x f(t) \mathrm d t \right)^{n-1} f(x) \mathrm d x
+    = n \int_0^1 \left(
+        x - \frac{\int_0^x F(t)^{n-1} \mathrm d t}{F(x)^{n-1}}
+    \right) F(x)^{n-1} f(x) \mathrm d x \\
+    = n \left\[I_{n-1} - \int_0^1 \left(\int_0^x F(t)^{n-1} \mathrm d t \right) f(x) \mathrm d x \right\]
+    = 1 - \int_0^1 F(x)^n \mathrm d x - n \int_0^1 \left(\int_0^x F(t)^{n-1} \mathrm d t \right) f(x) \mathrm d x.
+}
+$$
+
+Let's compute the last integral by parts.
+Set $u = \int_0^x F(t)^{n-1} \mathrm d t$, $\mathrm d v = f(x) \mathrm d x$.
+Then, $\mathrm d u = F(x)^{n-1} \mathrm d x$, $v = F(x)$, and
+
+$$
+\int_0^1 \left(\int_0^x F(t)^{n-1} \mathrm d t \right) f(x) \mathrm d x
+    = \left(F(x)  \int_0^x F(t)^{n-1} \mathrm d t \right) \bigg|\_0^1
+    - \int_0^1 F(x)^n \mathrm d x
+    = \int_0^1 F(x)^{n-1} \mathrm d x - \int_0^1 F(x)^n \mathrm d x.
+$$
+
+Finally,
+
+$$
+\mathbb E \[R_{\mathrm{FPA}}\] = 1 + (n-1) \int_0^1 F(x)^n \mathrm d x - n \int_0^1 F(x)^{n-1} \mathrm d x.
+$$
+
+**Step 3.**
+Since bids are truthful, the expected revenue of the second-price auction equals the expected value of the second-highest value among $n$ valuations:
+
+$$
+\displaylines{
+\mathbb E \[R_{\mathrm{SPA}}\]
+    = \sum_i \sum_{j \ne i} \mathbb E \[ x_i \mid x_i < x_j \land \forall k \ne i,j\ x_i > x_k \]
+    = n (n - 1) \mathbb E \[ x_1 \mid x_1 < x_2 \land \forall k > 2\ x_i > x_k \] \\
+    = n (n - 1) \int_0^1
+	       x
+	       \left( \int_x^1 f(t) \mathrm d t \right)
+	       \left( \int_0^x f(t) \mathrm d t \right)^{n-2}
+	       f(x) \mathrm d x
+    = n (n - 1) \int_0^1 x (1 - F(x)) F(x)^{n - 2} f(x) \mathrm d x \\
+    = n (n - 1) (I_{n-2} - I_{n-1})
+    = n (n - 1) \left\[
+        \frac{1}{n - 1} \left(1 - \int_0^1 F(x)^{n-1} \mathrm d x\right)
+        - \frac{1}{n} \left(1 - \int_0^1 F(x)^n \mathrm d x\right)
+    \right\] \\
+    = n \left(1 - \int_0^1 F(x)^{n-1} \mathrm d x\right)
+    - (n - 1) \left(1 - \int_0^1 F(x)^n \mathrm d x\right) 
+    = 1 + (n - 1) \int_0^1 F(x)^n \mathrm d x - n \int_0^1 F(x)^{n-1} \mathrm d x.
+}
+$$
+
+We see that the expected revenues of first-price and second-price auctions are indeed equal.

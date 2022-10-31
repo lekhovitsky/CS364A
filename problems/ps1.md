@@ -182,7 +182,38 @@ So, there always exists an equilibrium in a GSP auction that matches truthful au
 
 ### Problem 4
 
-:(
+(a) A good review of FPTAS for the Knapsack problem: https://math.mit.edu/~goemans/18434S06/knapsack-katherine.pdf
+
+(b) First let's note that the pseudo-polynomial time algorithm is inherently monotone, so we only need to show that bid scaling is monotone as well.
+The bid scaling function can be written as $v_i^{\prime\prime} = \lceil \frac{v_i}{K} \rceil$ where $K = \frac{V \epsilon}{n}$.
+When $V$ is fixed up front, this is a non-decreasong function of $v_i$, moreover, it does not depend on other bids and does not affect others' scaled bids.
+
+(c) Things get a little trickier when $V = \max_i v_i$ because now some bidders might affect others' scaled bits when changing their bid.
+Particlarly, the highest-bid bidder might decrease scaled bids of some bidders by increasing their bid even more.
+I'll now give a conceptual example of how this can lead to a winning bidder losing by increasing their bid.
+
+Imagine there are 5 bidders with scaled bids 5, 4, 4, 2, 2 and sizes $C - 2 \delta$, $\frac{C}{2}$, $\frac{C}{2}$, $\delta$, $\delta$ respectively, with $\delta \ll C$.
+The pseudo-polynomial algorithm will choose bidders 1, 4, 5 as winners.
+
+With certain original bids and choice of $\epsilon$, it might happen that if bidder 1 increases their bid, the new scaled bids would be as follows: 5, 4, 4, 1, 1.
+Now, the pseudo-polynomial algorithm will choose bidders 2 and 3 as winners.
+
+So we see that FPTAS allocation does not define a monotone allocation rule.
+
+(d) :(
+
+(e) The described allocation rule is not monotone because there can be situations in which a bidder who is originally winning can lose by increasing the bid.
+
+Let's consider a conceptual example of how it can happen.
+
+Imagine that in both knapsacks the winners were chosen via the greedy rule.
+Let's consider some winner of the second knapsack who increases their bid in such a way that they become a greedy-rule winner of the first knapsack, blocking some other winners.
+Under unfortunate circumstances, this can make the total surplus of this new group smaller than that of the highest bidder, who now becomes the winner of the first knapsack.
+And under even more unfortunate circumstances, our bidder might not fit into the greedy-rule winners of the second knapsack.
+
+Unfortunately I struggle with concrete numerical examples for this problem.
+
+(f) :(
 
 ### Problem 5
 

@@ -83,7 +83,7 @@ $$
 \mathbb E [\pi^\ast] \le t + \sum_{i=1}^n \mathbb E [(\pi_i - t)^+].
 $$
 
-For compactness, let $\hat \pi = \sum_{i=1}^n \mathbb E [(\pi_i - \hat t)^+]$, and consider two cases.
+For compactness, let $\hat \pi = \sum\limits_{i=1}^n \mathbb E [(\pi_i - \hat t)^+]$ (so $\mathbb E [\pi^\ast] = \hat t + \hat \pi$), and consider two cases.
 
 Case A: $\hat t \ge \hat \pi$.
 Consider the expected payoff of $s(\hat t)$:
@@ -93,7 +93,7 @@ $$
 \mathbb E [\pi_{s(\hat t)}]
 \ge (1 - q(\hat t)) \hat t + q(\hat t) \hat \pi
 = \frac{1}{2} \hat t + \left(\frac{1}{2} - q(\hat t)\right) \hat t + \frac{1}{2} \hat \pi - \left(\frac{1}{2} - q(\hat t)\right) \hat \pi \\
-= \frac{1}{2} (\hat t + \hat \pi) + \underbrace{\left(\frac{1}{2} - q(\hat t)\right)}_{\ge 0} \underbrace{(\hat t - \hat \pi)}_{\ge 0} \ge \frac{1}{2} \mathbb E [\pi^\ast].
+= \frac{1}{2} (\hat t + \hat \pi) + \underbrace{\left(\frac{1}{2} - q(\hat t)\right)}\_{\ge 0} \underbrace{(\hat t - \hat \pi)}\_{\ge 0} \ge \frac{1}{2} \mathbb E [\pi^\ast].
 }
 $$
 
@@ -107,7 +107,7 @@ $$
 \mathbb E [\pi_{S(\hat t)}]
 \ge (1 - Q(\hat t)) \hat t + Q(\hat t) \hat \pi
 = \frac{1}{2} \hat t + \left(\frac{1}{2} - Q(\hat t)\right) \hat t + \frac{1}{2} \hat \pi - \left(\frac{1}{2} - Q(\hat t)\right) \hat \pi \\
-= \frac{1}{2} (\hat t + \hat \pi) + \underbrace{\left(\frac{1}{2} - Q(\hat t)\right)}_{\le 0} \underbrace{(\hat t - \hat \pi)}_{\le 0} \ge \frac{1}{2} \mathbb E [\pi^\ast],
+= \frac{1}{2} (\hat t + \hat \pi) + \underbrace{\left(\frac{1}{2} - Q(\hat t)\right)}\_{\le 0} \underbrace{(\hat t - \hat \pi)}\_{\le 0} \ge \frac{1}{2} \mathbb E [\pi^\ast],
 }
 $$
 

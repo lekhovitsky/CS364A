@@ -178,3 +178,71 @@ $$
 $$
 
 $G$ is CDF, so $G(t^\ast) \lt 1$, and the approximation factor is greater than $\frac{1}{2}$ (there's a feeling tho that it converges to $\frac{1}{2}$ as $n \to \infty$).
+
+## Problem 9
+
+(a) This generalization of Bulow-Klemperer is rather simple and the proof is almost the same.
+We construct a mechanism $\mathcal A$ for an auction with $n + k$ bidders and $k$ identical goods which acts as follows:
+1. Run $\mathrm{OPT}_F$ with the first $n$ bidders;
+2. Arbitrarily allocate the remaining goods (if any) for free between the remaining $k$ bidders.
+
+This mechanism allocates all $k$ goods and has the same expected revenue as $\mathrm{OPT}_F$ with $n$ bidders.
+
+Now, the Vickrey auction with $n+k$ bidders and $k$ goods achieves the best expected revenue among those mechanism that allocate all goods, so its expected revenue must be greater than or equal to that of $\mathrm{OPT}_F$ with $n$ bidders.
+
+(b) :(
+
+## Problem 10
+
+(a) $F_i$ is an MHR distribution if $\frac{f_i(v_i)}{1 - F_i(v_i)}$ is nondecreasing in $v_i$.
+This means that $\frac{1 - F_i(v_i)}{f_i(v_i)}$ is nonincreasing in $v_i$ and $\varphi_i(v_i)$ is increasing as a difference of increasing and nonincreasing functions.
+So, $F_i$ has increasing virtual valuation function and is thus regular.
+
+(b) When $x \sim \mathrm{Unif}(0; 1)$, $F(x) = x$, $f(x) = 1$, and $\frac{f(x)}{1 - F(x)} = \frac{1}{1 - x}$ which is an increasing function in $x$, so the uniform distribution is MHR. Similar for general uniform distributions.
+
+When $x \sim \mathrm{Exp}(\lambda)$, $F(x) = 1 - e^{- \lambda x}$, $f(x) = \lambda e^{-\lambda x}$, so $\frac{f(x)}{1 - F(x)} = \frac{\lambda e^{-\lambda x}}{1 - (1 - e^{-\lambda x})} = \lambda$ which is constant (so, nondecreasing), and the exponential distribution is also MHR.
+
+(c) In problem 7 we've shown that for monopoly price $r_i$ it holds that $r_i = \frac{1 - F_i(r_i)}{f_i(r_i)}$.
+$F_i$ is MHR, so for $v_i \ge r_i$ it holds that $\frac{1 - F_i(r_i)}{f_i(r_i)} \ge \frac{1 - F_i(v_i)}{f_i(v_i)}$.
+Combining, we get
+
+$$
+r_i \ge \frac{1 - F_i(v_i)}{f_i(v_i)} \Rightarrow r_i + v_i - \frac{1 - F_i(v_i)}{f_i(v_i)} \ge v_i \Rightarrow r_i + \varphi_i(v_i) \ge v_i.
+$$
+
+(d) Convinced myself :)
+
+(e) :(
+
+(f) :(
+
+(g) From (f) we have that the expected revenue of $\mathcal M$ is at least half of its expected surplus.
+From (e) we have that the expected surplus of $\mathcal M$ is at least the expected surplus of $\mathcal M^\ast$.
+Also, for every DSIC mechanism ($\mathcal M^\ast$ included) its expected surplus if at least its expected revenue (because $\varphi (x) \le x$).
+Combining these three we can conclue that the expected revenue of $\mathcal M$ is at least half of the expected revenue of $\mathcal M^\ast$.
+
+## Problem 11
+
+(a) For a second, let's fix prices $\mathbf p = (p_1, \dots, p_n)$ and valuations $\mathbf v = (v_1, \dots, v_n)$.
+
+Let $R_{\mathbf p}(\mathbf v)$ denote the revenue in a single-consumer problem when we post prices $\mathbf p$ and consumer's valuations for goods are $\mathbf v$.
+This revenue equals either $p_i$ where $i = \arg \max_i (v_i - p_i)^+$ or $0$ if for all $i$ $v_i \lt p_i$.
+
+Let's also consider a mechanism $\mathcal M (\mathbf p)$ for a single-good problem, that posts reserve prices $\mathbf p$ for bidders whose valuations are $\mathbf v$.
+The mechanism allocates the good to the bidder $i$ where $i$ is defined as above or to nobody if no bidders meet the reserve price.
+Note that this allocation rule is monotone, so it can be augmented with a critical bid payment rule to make the mechanism DSIC.
+Notice that because the critical bid is at least $p_i$ (otherwise $i$ wouldn't be able to win at all), the revenue $R_{\mathcal M(\mathbf p)} (\mathbf v)$ of this mechanism is always greater than or equal to $R_{\mathbf p}(\mathbf v)$, no matter what $\mathbf p$ and $\mathbf v$ are.
+
+Now let $\mathbf p^\ast = \arg \max_{\mathbf p} \mathbb E_{\mathbf v} [R_{\mathbf p} (\mathbf v)]$ be the prices that maximize the revenue in a single-consumer problem.
+It is clear that
+
+$$
+\mathbb E_{\mathbf v} [R_{\mathbf p^\ast} (\mathbf v)] 
+\le \mathbb E_{\mathbf v} [R_{\mathcal M(\mathbf p^\ast)} (\mathbf v)].
+$$
+
+But $\mathcal M(\mathbf p^\ast)$ is just an arbitrary mechanism for a single-good problem, and its expected revenue itself is less than or equal to that of $\mathrm{OPT}_F$.
+
+Combining, we can conclude that the maximum achievable expected revenue in a single-consumer problem is bounded above by the maximum expected revenue in a single-good problem.
+
+(b) :(

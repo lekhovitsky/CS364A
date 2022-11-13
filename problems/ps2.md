@@ -2,6 +2,22 @@
 
 ## Problem 7
 
+I'm writing slightly more than required in this problem because understanding of revenue curve and virtual valuation function will help in the next problems.
+
+First of all, note that there are two ways to define the revenue curve: in terms of sale probability $q$ (given in the problem statement) and in terms of posted price $r$ (given in the lecture).
+Both formulations are useful for different purposes.
+
+Next, maximizing revenue curve over $q$ gives us the optimal sale probability $q^\ast$.
+The corresponding posted price $r^\ast = V(q^\ast)$ is precicely the monopoly price of $F$, which also turns out to be $\varphi^{-1}(0)$.
+Indeed, $r^\ast$ maximizes $R(r) = r (1 - F(r))$, so the derivative $R^\prime(r) = 1 - F(r) - r f(r)$ at $r^\ast$ equals zero, or
+
+$$
+r^\ast = \frac{1 - F(r^\ast)}{f(r^\ast)} \Rightarrow r - \frac{1 - F(r^\ast)}{f(r^\ast)} = 0
+\Rightarrow \varphi(r^\ast) = 0 \Rightarrow r^\ast = \varphi^{-1}(0).
+$$
+
+An interesting conclusion is that $\mathrm{OPT}_F$ is simply the Vickrey auction with reserve equal to the monopoly price of $F$.
+
 (a) If $v \sim \mathrm{Unif} (0; 1)$, $F(v) = v$, $F^{-1}(1 - q) = 1 - q$, and $R(q) = q (1 - q)$.
 
 (b) Derivative of the revenue curve:
@@ -16,44 +32,66 @@ $$
 \varphi(V(q)) = V(q) - \frac{1 - F(V(q))}{f(V(q))} = V(q) - \frac{1 - (1 - q)}{f(V(q))} = V(q) - \frac{q}{f(V(q))}.
 $$
 
-As we see, these are the same expressions.
+As we see, these are the same expressions, so indeed $\varphi(V(q)) = R^\prime(q)$.
 
-(c) Distribution is called regular if its virtual valuation function is strictly increasing, i.e. $\forall v$ $\varphi^\prime(v) > 0$.
-Since $F$ is strictly increasing, $V$ is bijective, and this condition is equivalent to $(\varphi(V(q)))^\prime > 0$.
-But based on the result from (b), it is equivalent to $R^{\prime\prime}(q) > 0$, which is equivalent to $R$ being concave.
+Note that the similar relationship also holds in terms of reserve price:
+
+$$
+\varphi(r) = - \frac{R^\prime(r)}{f(r)}.
+$$
+
+(c) Distribution $F$ is called regular if its virtual valuation function is strictly increasing, i.e. $\forall x$ $\varphi^\prime(x) > 0$. $V$ is a bijective decreasing function of $q$, so this means that $\frac{\mathrm d \varphi}{\mathrm d q} < 0$ for all $0 \le q \le 1$. But based on the result from (b), it is equivalent to $R^{\prime\prime}(q) < 0$, which in turn is equivalent to $R$ being concave.
 
 (d) As we've shown in (c), since the distribution is regular, the revenue function is concave.
 This means that $\forall x, y \in [0; 1]$ and $\forall \alpha \in [0; 1]$
 
 $$
-R(\alpha x + (1 - \alpha) y) \le \alpha R(x) + (1 - \alpha) R(y).\ \ \ \ (\ast)
+R(\alpha x + (1 - \alpha) y) \ge \alpha R(x) + (1 - \alpha) R(y).\ \ \ \ (\ast)
 $$
 
 Also remember that $R(0) = R(1) = 0$.
 
-Now, let $q^\ast = \arg \max_{q} R(q)$.
-
-Consider the case when $q^\ast \in (0; \frac{1}{2}]$.
-Let $x = \frac{1}{2}$, $y = 0$, $\alpha = 2 q^\ast \le 1$.
-$(\ast)$ now turnes into
+This would be sufficient for us to show the desired inequality directly but I'll take a slightly longer path that produces an intermediate result that is useful for one of the next problems. In fact, lets show that
 
 $$
-R(q^\ast) \le 2 q^\ast R\left(\frac{1}{2}\right) \le 2 R\left(\frac{1}{2}\right)
-\Rightarrow
-R\left(\frac{1}{2}\right) \ge \frac{1}{2} R(q^\ast).
+\mathbb E_{q \sim \mathrm{Unif}(0; 1)} [R(q)] \ge \frac{1}{2} R(q^\ast).
 $$
 
-Now consider the case when $q^\ast \in [\frac{1}{2}; 1)$.
-Let $x = \frac{1}{2}$, $y = 1$, $\alpha = 2 (1 - q^\ast) \le 1$.
-$(\ast)$ turnes into
+Let $q \in [0; q^\ast]$. If we now plug values $x = q^\ast$, $y = 0$ and $\alpha = \frac{q}{q^\ast}$ into $(\ast)$, we get
 
 $$
-R(q^\ast) \le 2 (1 - q^\ast) R\left(\frac{1}{2}\right) \le 2 R\left(\frac{1}{2}\right)
-\Rightarrow
-R\left(\frac{1}{2}\right) \ge \frac{1}{2} R(q^\ast).
+R(q) \ge \frac{q}{q^\ast} R(q^\ast).
 $$
 
-So, indeed, the median price is a $\frac{1}{2}$-approximation of the optimal price.
+Let now $q \in [q^\ast; 1]$. If we now plug $x = q^\ast$, $y = 1$ and $\alpha = \frac{1 - q}{1 - q^\ast}$ into $(\ast)$, we get
+
+$$
+R(q) \ge \frac{1 - q}{1 - q^\ast} R(q^\ast).
+$$
+
+Now,
+
+$$
+\displaylines{
+\mathbb E_{q \sim \mathrm{Unif}(0; 1)} [R(q)]
+    = \int_0^1 R(q) \mathrm d q
+    = \int_0^{q^\ast} R(q) \mathrm d q + \int_{q^\ast}^1 R(q) \mathrm d q \\
+    \ge R(q^\ast) \left[
+        \frac{1}{q^\ast} \int_0^{q^\ast} q \mathrm d q
+        + \frac{1}{1 - q^\ast} \int_{q^\ast}^1 (1 - q) \mathrm d q
+    \right] \\
+    = R(q^\ast) \left[
+        \frac{1}{q^\ast} \frac{q^2}{2} \bigg|_0^{q^\ast}
+        - \frac{1}{1 - q^\ast} \frac{(1 - q)^2}{2} \bigg|_{q^\ast}^1
+    \right] \\
+    = R(q^\ast) \left[\frac{q^\ast}{2} + \frac{1 - q^\ast}{2} \right]
+    = \frac{1}{2} R(q^\ast).
+}
+$$
+
+We arrived at the important result that using a sale probability $q$ sampled from the uniform distribution (which is equivalent to posting price $r$ sampled from $F$) on expectation gives us at least half of the maximum revenue achived by posting the monopoly price.
+
+We now only need to apply Jensen's inequality for expectations to conclude that $R\left(\frac{1}{2}\right) \ge \mathbb E_{q \sim \mathrm{Unif}(0; 1)} [R(q)]$, which gives us the desired final result that meadian price is $\frac{1}{2}$-approximation of the optimal posted price.
 
 ## Problem 8
 

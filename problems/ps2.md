@@ -210,15 +210,41 @@ $$
 r_i \ge \frac{1 - F_i(v_i)}{f_i(v_i)} \Rightarrow r_i + v_i - \frac{1 - F_i(v_i)}{f_i(v_i)} \ge v_i \Rightarrow r_i + \varphi_i(v_i) \ge v_i.
 $$
 
-(d) Convinced myself :)
+(d) Convinced :)
 
-(e) :(
+(e) Here we need to observe that $\mathcal M^\ast$ chooses an outcome from those that $\mathcal M$ optimizes over, i.e., the chosen outcome $T$ (i) is feasible and (ii) only contains bidders with $v_i \ge r_i$ (so $T \subset S$).
+The first statement is trivial.
+To see that the second statement is true, imagine that $\mathcal M^\ast$ chooses a feasible outcome $T^\prime$ that contains a bidder $j$ for who $v_j \lt r_j$.
+Since $F_j$ is MHR, the latter inequality implies that $\varphi_j(v_j) \lt 0$, and $\mathcal M^\ast$ would be strictly better off without $j$.
+Luckily, the environment is downward-closed, so if $T^\prime$ is feasible then $T^\prime \setminus \{j\}$ is also feasible.
+This way, we can remove all bidders that don't meet their reserve price.
 
-(f) :(
+Finally we conclude that $\mathcal M$ optimizes surplus over feasible subsets of $S$ and its surplus is thus greater than or equal to the surplus of any other feasible subset of $S$, including the one chosen by $\mathcal M^\ast$.
+
+(f) Let's fix valuations $\mathbf v$ for a second.
+The way $\mathcal M$ is defined, from $x_i(\mathbf v) = 1$ follows that $v_i \ge r_i$.
+Using (c) we can now write
+
+$$
+\sum_i x_i(\mathbf v) v_i
+    \le \sum_i x_i(\mathbf v) (r_i + \varphi_i(v_i))
+    = \sum_i x_i(\mathbf v) r_i + \sum_i x_i(\mathbf v) \varphi_i(v_i).
+$$
+
+Now, if $x_i(\mathbf v) = 1$, $i$ pays the criticial bid $p_i(\mathbf v)$ which is guaranteed to be at least $r_i$.
+So our inequality becomes
+
+$$
+\sum_i x_i(\mathbf v) v_i \le \sum_i x_i(\mathbf v) p_i(v) + \sum_i x_i(\mathbf v) \varphi_i(v_i).
+$$
+
+Finally, let's take expectation over $\mathbf v$.
+On the left we end up with $\mathcal M$'s expected surplus, and on the right we have a sum of two different expressions for $\mathcal M$'s expected revenue.
+Thus we conclude that the expected revenue of $\mathcal M$ is at least half of its expected surplus.
 
 (g) From (f) we have that the expected revenue of $\mathcal M$ is at least half of its expected surplus.
 From (e) we have that the expected surplus of $\mathcal M$ is at least the expected surplus of $\mathcal M^\ast$.
-Also, for every DSIC mechanism ($\mathcal M^\ast$ included) its expected surplus if at least its expected revenue (because $\varphi (x) \le x$).
+Also, for every DSIC mechanism ($\mathcal M^\ast$ included) its expected surplus is greater than or equal to its expected revenue (because $\varphi (x) \le x$).
 Combining these three we can conclue that the expected revenue of $\mathcal M$ is at least half of the expected revenue of $\mathcal M^\ast$.
 
 ## Problem 11

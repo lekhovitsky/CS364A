@@ -202,7 +202,7 @@ Let's fix an arbitrary bidder $i$, bids $\mathbf v_{-i}$ by others and reserve p
 Recall that in a single-bidder setting, $R(q)$ was the expected revenue from $i$ when sale probability induced by reserve price was $q$.
 This time things get slightly messier as $i$ needs to overbid both reserve price and critical bid (think $k$-th highest bid from $\mathbf v_{-i}$).
 Let's call the corresponding values in sale probability space $q$ and $q_i$ respectively.
-Then, expected revenue from $i$ (denote it $R_i(q)$ for simplicity) is $R(\min\{q, q_i\})$.
+Then, expected revenue from $i$ (denote it $R_i(q)$ for simplicity) is $R(\min\\{q, q_i\\})$.
 
 We'll now focus on showing that $\int_0^1 R_i(q) \mathrm d q \ge \frac{1}{2} R_i(q^\ast)$ where $q^\ast$ is sale probability that corresponds to the monopoly price $r^\ast$.
 By taking the expectation over $\mathbf v_{-i}$ and summing over $i$ we will then get the desired result.
@@ -219,7 +219,7 @@ Combining everything,
 
 $$
 R_i(q) \ge R(q) \Rightarrow \int_0^1 R_i(q) \mathrm d q \ge \int_0^1 R(q) \mathrm d q
-\underbrace{\ge}_{\text{7(d)}} \frac{1}{2} R(q^\ast) = \frac{1}{2} R_i(q^\ast).
+\underbrace{\ge}\_{\text{7(d)}} \frac{1}{2} R(q^\ast) = \frac{1}{2} R_i(q^\ast).
 $$
 
 Now let's consider a case when $q_i \le q^\ast$.
@@ -234,7 +234,7 @@ $$
 \int_0^1 R_i(q) \mathrm d q
     = \int_0^{q_i} R_i(q) \mathrm d q
     + \int_{q_i}^1 R_i(q) \mathrm d q
-    \ge \frac{R(q_i)}{q_i} \underbrace{\int_0^{q_i} q \mathrm d q}_{= \frac{q_i^2}{2}}
+    \ge \frac{R(q_i)}{q_i} \underbrace{\int_0^{q_i} q \mathrm d q}\_{= \frac{q_i^2}{2}}
     + (1 - q_i) R(q_i) \\
     = \left(1 - \frac{q_i}{2} \right) R(q_i)
     \ge \frac{1}{2} R(q_i)
@@ -268,7 +268,7 @@ $$
 The first statement is trivial.
 To see that the second statement is true, imagine that $\mathcal M^\ast$ chooses a feasible outcome $T^\prime$ that contains a bidder $j$ for who $v_j \lt r_j$.
 Since $F_j$ is MHR, the latter inequality implies that $\varphi_j(v_j) \lt 0$, and $\mathcal M^\ast$ would be strictly better off without $j$.
-Luckily, the environment is downward-closed, so if $T^\prime$ is feasible then $T^\prime \setminus \{j\}$ is also feasible.
+Luckily, the environment is downward-closed, so if $T^\prime$ is feasible then $T^\prime \setminus \\{j\\}$ is also feasible.
 This way, we can remove all bidders that don't meet their reserve price.
 
 Finally we conclude that $\mathcal M$ optimizes surplus over feasible subsets of $S$ and its surplus is thus greater than or equal to the surplus of any other feasible subset of $S$, including the one chosen by $\mathcal M^\ast$.
@@ -296,7 +296,7 @@ Thus we conclude that the expected revenue of $\mathcal M$ is at least half of i
 
 (g) From (f) we have that the expected revenue of $\mathcal M$ is at least half of its expected surplus.
 From (e) we have that the expected surplus of $\mathcal M$ is at least the expected surplus of $\mathcal M^\ast$.
-Also, for every DSIC mechanism ($\mathcal M^\ast$ included) its expected surplus is greater than or equal to its expected revenue (because $\varphi (x) \le x$).
+Also, for every DSIC mechanism (including $\mathcal M^\ast$) its expected surplus is greater than or equal to its expected revenue (because $\varphi (x) \le x$).
 Combining these three we can conclue that the expected revenue of $\mathcal M$ is at least half of the expected revenue of $\mathcal M^\ast$.
 
 ## Problem 11
@@ -327,7 +327,7 @@ Combining, we can conclude that the maximum achievable expected revenue in a sin
 
 ## Problem 12
 
-(a) Let's slightly modify our notation: let $\mathbf b$ be submitted valuations (as functions of outcomes $\omega$), $f(\omega; \mathbf b) = c(\omega) + \sum_{i=1}^n w_i b_i(\omega)$ be our affine maximizer, and $f_{-i}(\omega; \mathbf b) = c(\omega) + \sum_{j \ne i} w_j b_j(\omega)$ for each player $i$.
+(a) Let's slightly modify our notation: let $\mathbf b$ be submitted valuations (as functions of outcomes $\omega$), $f(\omega; \mathbf b) = c(\omega) + \sum\limits_{i=1}^n w_i b_i(\omega)$ be our affine maximizer, and $f_{-i}(\omega; \mathbf b) = c(\omega) + \sum_{j \ne i} w_j b_j(\omega)$ for each player $i$.
 
 Consider the following mechanism:
 * allocation: $x(\mathbf b) = \omega^\ast$ where $\omega^\ast = \arg \max_{\omega \in \Omega^\prime} f(\omega; \mathbf b)$;
@@ -345,8 +345,8 @@ v_i(\omega^\ast) - p_i(\mathbf b)
         - f_{-i}(\omega^\ast; \mathbf b)
     \right] \\
     = \frac{1}{w_i} \left[
-        \underbrace{c(\omega^\ast) + w_i v_i(\omega^\ast) + \sum_{j \ne i} w_j b_j(\omega^\ast)}_{\text{equals $f(\omega^\ast; \mathbf b)$ when $v_i = b_i$}}
-        - \underbrace{\max_{\omega \in \Omega^\prime} f_{-i}(\omega; \mathbf b)}_{\text{does not depend on $b_i$}}
+        \underbrace{c(\omega^\ast) + w_i v_i(\omega^\ast) + \sum_{j \ne i} w_j b_j(\omega^\ast)}\_{\text{equals $f(\omega^\ast; \mathbf b)$ when $v_i = b_i$}}
+        - \underbrace{\max_{\omega \in \Omega^\prime} f_{-i}(\omega; \mathbf b)}\_{\text{does not depend on $b_i$}}
     \right].
 }
 $$
@@ -362,10 +362,10 @@ Now, combine everything we now about the problem:
 
 $$
 v_j(\mathcal S)
-    \underbrace{\ge}_{\text{$v_j$ monotone}} v_j(T_j^\ast)
-    \underbrace{\ge}_{\text{our choice of $j$}} \frac{1}{|\mathcal A|} \sum_{i \in \mathcal A} v_i(T_i^\ast)
-    \underbrace{\ge}_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal A} v_i(T_i^\ast)
-    \underbrace{\ge}_{\text{lopsided}} \frac{1}{2 \sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
+    \underbrace{\ge}\_{\text{$v_j$ monotone}} v_j(T_j^\ast)
+    \underbrace{\ge}\_{\text{our choice of $j$}} \frac{1}{|\mathcal A|} \sum_{i \in \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}\_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}\_{\text{lopsided}} \frac{1}{2 \sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
 $$
 
 So, in the problem that is lopsided, the allocation that gives all the goods to a single player $j$ who has the highest valuation in the optimum amongst $\mathcal A$ achieves at least $\frac{1}{2\sqrt{m}}$ of the maximum surplus.
@@ -381,9 +381,9 @@ Again, combine everything:
 
 $$
 \sum_{i \in \mathcal N \setminus \mathcal A} v_i(s_i^\ast)
-    \underbrace{\ge}_{\text{$v_i$ subadditive}}  \sum_{i \in \mathcal N \setminus \mathcal A} \frac{1}{|T_i^\ast|} v_i(T_i^\ast)
-    \underbrace{\ge}_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal N \setminus \mathcal A} v_i(T_i^\ast)
-    \underbrace{\ge}_{\text{not lopsided}} \frac{1}{2\sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
+    \underbrace{\ge}\_{\text{$v_i$ subadditive}} \sum_{i \in \mathcal N \setminus \mathcal A} \frac{1}{|T_i^\ast|} v_i(T_i^\ast)
+    \underbrace{\ge}\_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal N \setminus \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}\_{\text{not lopsided}} \frac{1}{2\sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
 $$
 
 So, in the problem that's not lopsided, the allocation that gives each player $i$ from $\mathcal N \setminus \mathcal A$ the item from $T_i^\ast$ that $i$ values the most achieves at least $\frac{1}{2\sqrt{m}}$ of the maximum surplus.
@@ -416,7 +416,7 @@ To summarize, the polynomial-time $\Theta(1 / \sqrt{m})$-approximate surplus max
 
 (e) In part (a) we proved that for every affine maximizer $f$ and every subset of outcomes $\Theta^\prime$ there exists a DSIC mechanism that maximizes $f$ over $\Theta^\prime$ and wrote down its allocation and payment rules.
 
-In parts (b) through (d) we found the polynomial-time algorithm that maximizes social surplus ($f$) over all outcomes in which either all goods are allocated to a single player or at most one good is allocated to each player ($\Theta^\prime$).
+In parts (b) through (d) we found the polynomial-time algorithm that maximizes social surplus (that's $f$) over all outcomes in which either all goods are allocated to a single player or at most one good is allocated to each player (that's $\Theta^\prime$).
 We also proved that this algorithm achieves at least $\frac{1}{2\sqrt{m}}$ of maximum social surplus over all possible outcomes.
 
 The polynomial-time DSIC combinatorial auction for subadditive valuations which achieves at least $\frac{1}{2\sqrt{m}}$ of maximum social surplus:

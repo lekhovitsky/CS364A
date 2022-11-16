@@ -190,7 +190,59 @@ This mechanism allocates all $k$ goods and has the same expected revenue as $\ma
 
 Now, the Vickrey auction with $n+k$ bidders and $k$ goods achieves the best expected revenue among those mechanism that allocate all goods, so its expected revenue must be greater than or equal to that of $\mathrm{OPT}_F$ with $n$ bidders.
 
-(b) :(
+(b) Let's slightly reformulate the problem to make it more approachable.
+What we want to show is that the expected revenue of Vickrey auction with $n \ge 1$ bidders and random reserve $r \sim F$ (expectation both over reserve and valuations) is at least half of the expected revenue of $\mathrm{OPT}_F$ with the same number of bidders.
+We then simply need to combine this with lemma we proved in exercise 27 (that connects revenues of $\mathrm{OPT}_F$ with $n$ and $n+1$ bidders) to get the final result.
+
+Notice how for $n = 1$ we can just use the result from problem 7 (d) without any modifications.
+The proof for arbitrary $n$ reduces to the very similar problem, but has to take into account that each bidder has to overbid not only the reserve price but also the critical bid in order to win.
+
+Let's fix an arbitrary bidder $i$, bids $\mathbf v_{-i}$ by others and reserve price $r$, and try to reason about the expected revenue that comes from $i$.
+
+Recall that in a single-bidder setting, $R(q)$ was the expected revenue from $i$ when sale probability induced by reserve price was $q$.
+This time things get slightly messier as $i$ needs to overbid both reserve price and critical bid (think $k$-th highest bid from $\mathbf v_{-i}$).
+Let's call the corresponding values in sale probability space $q$ and $q_i$ respectively.
+Then, expected revenue from $i$ (denote it $R_i(q)$ for simplicity) is $R(\min\{q, q_i\})$.
+
+We'll now focus on showing that $\int_0^1 R_i(q) \mathrm d q \ge \frac{1}{2} R_i(q^\ast)$ where $q^\ast$ is sale probability that corresponds to the monopoly price $r^\ast$.
+By taking the expectation over $\mathbf v_{-i}$ and summing over $i$ we will then get the desired result.
+
+We're still assuming that $F$ is regular so $R$ is concave.
+Also, $R$ is still maximized at $q^\ast$, and equals zero when $q = 0$ or $q = 1$.
+
+Let's start with a simpler case when $q_i \ge q^\ast$.
+* $R_i(q^\ast)$ just equals $R(q^\ast)$.
+* When $q \le q_i$, $R_i(q)$ equals $R(q)$.
+* When $q \ge q_i$, $R_i(q)$ equals $R(q_i)$ which is greater than or equal to $R(q)$ since $R$ is decreasing on $[q^\ast; 1]$.
+
+Combining everything,
+
+$$
+R_i(q) \ge R(q) \Rightarrow \int_0^1 R_i(q) \mathrm d q \ge \int_0^1 R(q) \mathrm d q
+\underbrace{\ge}_{\text{7(d)}} \frac{1}{2} R(q^\ast) = \frac{1}{2} R_i(q^\ast).
+$$
+
+Now let's consider a case when $q_i \le q^\ast$.
+* $R_i(q^\ast)$ equals $R(q_i)$.
+* When $q \le q_i$, $R_i(q)$ equals $R(q)$, and we can use concavity of $R$: plug $x = q_i$, $y = 0$, $\alpha = \frac{q}{q_i}$ into $(*)$ and get $R(q) \ge \frac{q}{q_i} R(q_i)$;
+* When $q \ge q_i$, $R_i(q)$ equals $R(q_i)$.
+
+Combining everything,
+
+$$
+\displaylines{
+\int_0^1 R_i(q) \mathrm d q
+    = \int_0^{q_i} R_i(q) \mathrm d q
+    + \int_{q_i}^1 R_i(q) \mathrm d q
+    \ge \frac{R(q_i)}{q_i} \underbrace{\int_0^{q_i} q \mathrm d q}_{= \frac{q_i^2}{2}}
+    + (1 - q_i) R(q_i) \\
+    = \left(1 - \frac{q_i}{2} \right) R(q_i)
+    \ge \frac{1}{2} R(q_i)
+    = \frac{1}{2} R_i(q^\ast).
+}
+$$
+
+So, in both cases, $\int_0^1 R(q) \mathrm d q \ge R_i(q^\ast)$, which is what we wanted to show.
 
 ## Problem 10
 
@@ -272,3 +324,106 @@ But $\mathcal M(\mathbf p^\ast)$ is just an arbitrary mechanism for a single-goo
 Combining, we can conclude that the maximum achievable expected revenue in a single-consumer problem is bounded above by the maximum expected revenue in a single-good problem.
 
 (b) :(
+
+## Problem 12
+
+(a) Let's slightly modify our notation: let $\mathbf b$ be submitted valuations (as functions of outcomes $\omega$), $f(\omega; \mathbf b) = c(\omega) + \sum_{i=1}^n w_i b_i(\omega)$ be our affine maximizer, and $f_{-i}(\omega; \mathbf b) = c(\omega) + \sum_{j \ne i} w_j b_j(\omega)$ for each player $i$.
+
+Consider the following mechanism:
+* allocation: $x(\mathbf b) = \omega^\ast$ where $\omega^\ast = \arg \max_{\omega \in \Omega^\prime} f(\omega; \mathbf b)$;
+* payments: $p_i(\mathbf b) = \frac{1}{w_i} \left[ \max_{\omega \in \Omega^\prime} f_{-i}(\omega; \mathbf b) - f_{-i}(\omega^\ast; \mathbf b) \right]$.
+
+It's easy to show that this mechanism satisfies the desired properties.
+When $\mathbf b = \mathbf v$, the allocation indeed maximizes $f$ over $\Omega^\prime$.
+To show that it is DSIC, consider player $i$'s utility in $\omega^\ast$:
+
+$$
+\displaylines{
+v_i(\omega^\ast) - p_i(\mathbf b)
+    = v_i(\omega^\ast) - \frac{1}{w_i} \left[
+        \max_{\omega \in \Omega^\prime} f_{-i}(\omega; \mathbf b)
+        - f_{-i}(\omega^\ast; \mathbf b)
+    \right] \\
+    = \frac{1}{w_i} \left[
+        \underbrace{c(\omega^\ast) + w_i v_i(\omega^\ast) + \sum_{j \ne i} w_j b_j(\omega^\ast)}_{\text{equals $f(\omega^\ast; \mathbf b)$ when $v_i = b_i$}}
+        - \underbrace{\max_{\omega \in \Omega^\prime} f_{-i}(\omega; \mathbf b)}_{\text{does not depend on $b_i$}}
+    \right].
+}
+$$
+
+We see that if $i$ submits their valuation truthfully, allocation rule turns out to maximize $i$'s objective as well, so telling the truth is a dominant strategy for $i$.
+This holds for other players, so the mechanism is DSIC.
+
+(b) Let $\mathcal N$ denote the set of all players, and $\mathcal A = \{i \in \mathcal N : |T_i^\ast| \ge \sqrt{m}\}$. Since there are only $m$ goods, it must be that $|\mathcal A| \le \sqrt{m}$.
+
+Next, consider a player $j \in \mathcal A$ whose valuation in the optimum is the highest amongst $\mathcal A$. $j$'s valution is obviously greater than or equal to the average valution amongst $\mathcal A$ in the optimum, i.e. $v_j(T_j^\ast) \ge \frac{1}{|\mathcal A|} \sum_{i \in \mathcal A} v_i(T_i^\ast)$.
+
+Now, combine everything we now about the problem:
+
+$$
+v_j(\mathcal S)
+    \underbrace{\ge}_{\text{$v_j$ monotone}} v_j(T_j^\ast)
+    \underbrace{\ge}_{\text{our choice of $j$}} \frac{1}{|\mathcal A|} \sum_{i \in \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}_{\text{lopsided}} \frac{1}{2 \sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
+$$
+
+So, in the problem that is lopsided, the allocation that gives all the goods to a single player $j$ who has the highest valuation in the optimum amongst $\mathcal A$ achieves at least $\frac{1}{2\sqrt{m}}$ of the maximum surplus.
+
+(c) Let's consider an arbitrary player $i$. Let aslo $s_i^\ast = \arg \max_{s \in T_i^\ast} v_i(s)$.
+Since valuations are subadditive, it holds that $v_i(T_i^\ast) \le \sum_{s \in T_i^\ast} v_i(s) \le |T_i^\ast| v_i(s_i^\ast) \Rightarrow v_i(s_i^\ast) \ge \frac{1}{|T_i^\ast|} v_i(T_i^\ast)$.
+
+Next, the problem is not lopsided, so $\sum_{i \in \mathcal A} v_i(T_i^\ast) \lt \frac{1}{2} \sum_{i \in \mathcal N} v_i(T_i^\ast)$.
+This immediately implies $\sum_{i \in \mathcal N \setminus \mathcal A} v_i(T_i^\ast) \ge \frac{1}{2} \sum_{i \in \mathcal N} v_i(T_i^\ast)$.
+Also, if $i \in \mathcal N \setminus \mathcal A$ then $|T_i^\ast| \le \sqrt{m}$.
+
+Again, combine everything:
+
+$$
+\sum_{i \in \mathcal N \setminus \mathcal A} v_i(s_i^\ast)
+    \underbrace{\ge}_{\text{$v_i$ subadditive}}  \sum_{i \in \mathcal N \setminus \mathcal A} \frac{1}{|T_i^\ast|} v_i(T_i^\ast)
+    \underbrace{\ge}_{\text{definition of $\mathcal A$}} \frac{1}{\sqrt{m}} \sum_{i \in \mathcal N \setminus \mathcal A} v_i(T_i^\ast)
+    \underbrace{\ge}_{\text{not lopsided}} \frac{1}{2\sqrt{m}} \sum_{i \in \mathcal N} v_i(T_i^\ast).
+$$
+
+So, in the problem that's not lopsided, the allocation that gives each player $i$ from $\mathcal N \setminus \mathcal A$ the item from $T_i^\ast$ that $i$ values the most achieves at least $\frac{1}{2\sqrt{m}}$ of the maximum surplus.
+
+(d) In parts (b) and (c) we've shown that good allocations _exist_ for lopsided and not lopsided problems.
+Those allocations are pretty useless though because they actually use optimal allocation in their construction.
+Luckily, knowing they exist is sufficient because we can construct simple allocations that produce better results than those and get the desired lower bound.
+
+Let's start with simpler case when the problem is lopsided.
+We know that there exists some player $j$ such that allocating all the goods to them gives us at least $\frac{1}{2\sqrt{m}}$ of the maximum surplus.
+We don't even need to know $j$ since we can simply allocate all goods to the player who values them the most, giving us even higher surplus.
+This solution takes linear time.
+
+Slightly trickier case is when the problem is not lopsided.
+We proved that there exists a solution that achieves the same lower bound, and we know that in this solution every player gets at most one good.
+Well, let's optimize over all such outcomes.
+Luckily, there's a polynomial-time way to do that.
+
+Consider a bipartite graph with the set of players $\mathcal N$ on the left side, the set of goods $\mathcal S$ on the right side, and the weight of each edge $(i, s)$ equal to the valuation $v_i(s)$.
+Matching (a set of edges that don't have common vertices) in this graph corresponds to the allocation in which each player gets at most one good.
+We're interested in the maximum-weight matching, and we can use one of classical algorithms (say, Hungarian method) to find the solution in polynomial time.
+This solution is guaranteed to have the surplus at least that of one from (c), so it also satisfies the lower bound.
+
+Well, normally we don't know in advance if the problem is lopsided or not, but we can run both described algorithms and take the better result.
+
+To summarize, the polynomial-time $\Theta(1 / \sqrt{m})$-approximate surplus maximization algorithm for subadditive valuations is the following:
+1. Run Hungarian algorithm to find the maximum-weight matching in the bipartite graph with players on the left, goods on the right, and valuations as edges;
+2. Find the player who values the bundle $\mathcal S$ of all goods the most;
+3. Return the better allocation of those found in steps 1 and 2.
+
+(e) In part (a) we proved that for every affine maximizer $f$ and every subset of outcomes $\Theta^\prime$ there exists a DSIC mechanism that maximizes $f$ over $\Theta^\prime$ and wrote down its allocation and payment rules.
+
+In parts (b) through (d) we found the polynomial-time algorithm that maximizes social surplus ($f$) over all outcomes in which either all goods are allocated to a single player or at most one good is allocated to each player ($\Theta^\prime$).
+We also proved that this algorithm achieves at least $\frac{1}{2\sqrt{m}}$ of maximum social surplus over all possible outcomes.
+
+The polynomial-time DSIC combinatorial auction for subadditive valuations which achieves at least $\frac{1}{2\sqrt{m}}$ of maximum social surplus:
+1. Collect players' valuations for each good separately and for the bundle of all goods (note that we collect less info);
+2. Run the algorithm in (d) to determine the surplus-maximizing allocation;
+3. For every player, charge according to the rule from (a), using algorithm from (d) as a subroutine for computing $\max f_{-i}$.
+
+## Problem 13
+
+:(
